@@ -1,0 +1,23 @@
+const renderRates = (rates) => {
+  const renderArea = $('#root ul')
+  rates.forEach(rate => renderArea.prepend(`
+    <li>
+      <span>${rate.cryptoCurrencyKey}</span>
+      <br>
+      <span>${rate.rate}</span>
+      <br>
+      <span>${new Date(rate.time)}</span>
+    </li>
+  `))
+}
+
+const fetchHistory = () => {
+  fetch('/api/currencies/BTC/rates').then(async response => {
+    const data = await response.json()
+    if (Array.isArray(data)) {
+      renderRates(data)
+    }
+  }).catch(err => console.error(err))
+}
+
+fetchHistory()

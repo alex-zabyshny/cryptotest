@@ -10,7 +10,8 @@ const getAvailibleCurrencies = (req, res, next) => {
 }
 
 const getCurrencyExchangeRatesHistory = (req, res, next) => {
-  getCurrencyHistory().then(history => res.json(history)).catch(err => next(err))
+  const { currency } = req.params
+  getCurrencyHistory(currency).then(history => res.json(history)).catch(err => next(err))
 }
 
 module.exports = {

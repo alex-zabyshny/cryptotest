@@ -11,7 +11,7 @@ router.get('/currencies/:currency/rates', (req, res, next) => {
   if (!currenciesList.find(({ alias, availible }) => alias === currency && availible)) {
     return next()
   }
-  res.render('rates', { currency })
+  res.render('rates', { currency, payload: JSON.stringify({ currency }) })
 })
 
 module.exports = router

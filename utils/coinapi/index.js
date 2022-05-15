@@ -1,6 +1,6 @@
 const axios = require('axios')
 const config = require('config')
-const { Rates } = require('../../models/currency')
+const { Rates } = require('../../models/rates')
 
 const { server: { currenciesList, coinApi, ratesCheckInterval } } = config
 
