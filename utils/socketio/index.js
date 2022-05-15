@@ -6,8 +6,8 @@ const initSocket = (server) => {
   io = new Server(server)
 
   io.on('connection', (socket) => {
-    const { currency } = socket.handshake.query
-    socket.join(currency)
+    const { currency: room } = socket.handshake.query
+    socket.join(room)
   })
 
   return io
