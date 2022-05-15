@@ -34,7 +34,7 @@ mongoose.connect(databaseOptions.connectionUrl).then(() => {
       return console.log(err)
     }
 
-    initRatesCheckerTimer()
+    // initRatesCheckerTimer()
 
     console.log(`Server started on port ${serverStartupOptions.port}`)
   })
