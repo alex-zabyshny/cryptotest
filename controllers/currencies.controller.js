@@ -5,6 +5,12 @@ const getAvailibleCurrencies = (req, res) => {
   res.json(currenciesList)
 }
 
+const getCurrencyExchangeRatesHistory = (req, res) => {
+  res.json([])
+}
+
+
 module.exports = {
   getAvailibleCurrencies,
+  getCurrencyExchangeRatesHistory,
 }

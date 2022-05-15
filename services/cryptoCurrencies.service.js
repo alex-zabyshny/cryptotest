@@ -1,7 +1,8 @@
-const config = require('../config/config')
+const config = require('config')
 
-const receiveCurrenciesList = () => config.currenciesList
+const { server: { currenciesList } } = config
+const receiveCurrenciesList = () => currenciesList
 
 module.exports = {
-  receiveCurrenciesList, 
+  receiveCurrenciesList,
 }

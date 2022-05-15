@@ -1,11 +1,13 @@
 const http = require('http')
 const express = require('express')
 const bodyParser = require('body-parser')
+const config = require('config')
 
 const routes = require('./routes/routes')
 const middlewares = require('./middlewares/middlewares')
 
 const app = express()
+const server = http.createServer(app)
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
@@ -17,9 +19,7 @@ app.use('*', (req, res) => res.status(404).render('404'))
 
 app.use(middlewares.errorHandler)
 
-const port = 3000
-
-const server = http.createServer(app)
+const { serverStartupOptions: { port } } = config
 server.listen(port, (err) => {
   if (err) console.log(err)
   console.log(`\nServer started on port ${port}`)
