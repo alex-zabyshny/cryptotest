@@ -24,3 +24,6 @@ const fetchHistory = () => {
 }
 
 fetchHistory()
+
+const socket = io({ query: `currency=${payload.currency}` })
+socket.on('rates', (data) => renderRates(JSON.parse(data)))

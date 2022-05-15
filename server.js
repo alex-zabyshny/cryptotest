@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const routes = require('./routes/routes')
 const middlewares = require('./middlewares/middlewares')
 const { initRatesCheckerTimer } = require('./utils/coinapi')
+const { initSocket } = require('./utils/socketio')
 
 const { serverStartupOptions, databaseOptions } = config
 
@@ -26,12 +27,14 @@ app.use(middlewares.errorHandler)
 mongoose.connect(databaseOptions.connectionUrl).then(() => {
   console.log('\nDB connection successfull')
 
+  initSocket(server)
+
   server.listen(serverStartupOptions.port, (err) => {
     if (err) {
       return console.log(err)
     }
 
-    // initRatesCheckerTimer()
+    initRatesCheckerTimer()
 
     console.log(`Server started on port ${serverStartupOptions.port}`)
   })

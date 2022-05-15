@@ -1,6 +1,7 @@
 const axios = require('axios')
 const config = require('config')
 const { Rates } = require('../../models/rates')
+const { sendRealTimeRates } = require('../socketio')
 
 const { server: { currenciesList, coinApi, ratesCheckInterval } } = config
 
@@ -34,7 +35,8 @@ const processAvailibleCurrencies = async () => {
     })
 
     rate.save().then(data => {
-      console.log(data)
+      const { cryptoCurrencyKey: room } = data
+      sendRealTimeRates(room, [data])
     }).catch(err => console.error(err))
   }
 }
