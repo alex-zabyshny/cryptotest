@@ -1,3 +1,5 @@
+const payload = JSON.parse($('#payload').text())
+
 const renderRates = (rates) => {
   const renderArea = $('#root ul')
   rates.forEach(rate => renderArea.prepend(`
@@ -12,7 +14,8 @@ const renderRates = (rates) => {
 }
 
 const fetchHistory = () => {
-  fetch('/api/currencies/BTC/rates').then(async response => {
+  const { currency } = payload
+  fetch(`/api/currencies/${currency}/rates`).then(async response => {
     const data = await response.json()
     if (Array.isArray(data)) {
       renderRates(data)
