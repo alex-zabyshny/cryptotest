@@ -2,10 +2,13 @@ const http = require('http')
 const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('config')
+const mongoose = require('mongoose')
 
 const routes = require('./routes/routes')
 const middlewares = require('./middlewares/middlewares')
 const { initRatesCheckerTimer } = require('./utils/coinapi')
+
+const { serverStartupOptions, databaseOptions } = config
 
 const app = express()
 const server = http.createServer(app)
@@ -20,13 +23,16 @@ app.use('*', (req, res) => res.status(404).render('404'))
 
 app.use(middlewares.errorHandler)
 
-const { serverStartupOptions: { port } } = config
-server.listen(port, (err) => {
-  if (err) {
-    return console.log(err)
-  }
+mongoose.connect(databaseOptions.connectionUrl).then(() => {
+  console.log('\nDB connection successfull')
 
-  initRatesCheckerTimer()
+  server.listen(serverStartupOptions.port, (err) => {
+    if (err) {
+      return console.log(err)
+    }
 
-  console.log(`\nServer started on port ${port}`)
-})
+    // initRatesCheckerTimer()
+
+    console.log(`Server started on port ${serverStartupOptions.port}`)
+  })
+}).catch(err => console.error(err))
