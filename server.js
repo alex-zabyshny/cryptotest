@@ -5,6 +5,7 @@ const config = require('config')
 
 const routes = require('./routes/routes')
 const middlewares = require('./middlewares/middlewares')
+const { initRatesCheckerTimer } = require('./utils/coinapi')
 
 const app = express()
 const server = http.createServer(app)
@@ -24,5 +25,8 @@ server.listen(port, (err) => {
   if (err) {
     return console.log(err)
   }
+
+  initRatesCheckerTimer()
+
   console.log(`\nServer started on port ${port}`)
 })

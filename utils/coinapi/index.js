@@ -5,7 +5,7 @@ const { server: { currenciesList, coinApi, ratesCheckInterval } } = config
 
 const requestInstance = axios.create({
   baseURL: coinApi.baseUrl,
-  headers: { 'X-CoinAPI-Key': coinApi.apiKey },
+  headers: { 'X-CoinAPI-Key': coinApi.key },
 })
 
 const getCurrencyExchangeRates = async (currency) => {
@@ -25,7 +25,7 @@ const getRatesForAvailibleCurrencies = async () => {
 }
 
 const initRatesCheckerTimer = () => {
-  return setTimeout(getRatesForAvailibleCurrencies, ratesCheckInterval)
+  return setInterval(getRatesForAvailibleCurrencies, ratesCheckInterval * 1000)
 }
 
 module.exports = {
