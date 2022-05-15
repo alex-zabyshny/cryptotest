@@ -1,7 +1,8 @@
 const config = require('config')
 
+const { server: { currenciesList } } = config
+
 const receiveCurrenciesList = () => {
-  const { server: { currenciesList } } = config
   return currenciesList
 }
 

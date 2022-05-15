@@ -7,7 +7,7 @@ const fetchCurrenciesList = () => {
   fetch('/api/currencies').then(async response => {
     const data = await response.json()
     if (Array.isArray(data)) {
-      const availibleCurrencies = data.filter(el => el.availible).map(el => el.alias)
+      const availibleCurrencies = data.filter(({ availible }) => availible).map(({ alias }) => alias)
       renderCurrenciesList(availibleCurrencies)
     }
   }).catch(err => console.error(err))

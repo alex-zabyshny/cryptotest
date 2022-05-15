@@ -17,5 +17,10 @@ module.exports = {
       alias: 'ETH',
       availible: true,
     }],
-  }
+    coinApi: {
+      key: process.env.COIN_API_KEY,
+      baseUrl: 'https://rest.coinapi.io',
+    },
+    ratesCheckInterval: 30, // Seconds
+  },
 }

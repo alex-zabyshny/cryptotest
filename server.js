@@ -21,6 +21,8 @@ app.use(middlewares.errorHandler)
 
 const { serverStartupOptions: { port } } = config
 server.listen(port, (err) => {
-  if (err) console.log(err)
+  if (err) {
+    return console.log(err)
+  }
   console.log(`\nServer started on port ${port}`)
 })
