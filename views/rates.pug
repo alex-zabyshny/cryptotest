@@ -4,12 +4,13 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous")
     script(src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous")
     script(src="/socket.io/socket.io.js")
     title Rates
   body
     script#payload(type="application/json") !{payload}
-    h1 Rates for #{currency}. Updates in real time
-    #root
-      ul
+    .text-center
+      h1 Rates for #{currency}. Realtime updates
+    #root.list-group.list-group-checkable.d-grid.gap-2.border-0.w-auto
     script(src="/js/rates.js")

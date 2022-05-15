@@ -1,15 +1,15 @@
 const payload = JSON.parse($('#payload').text())
 
 const renderRates = (rates) => {
-  const renderArea = $('#root ul')
+  const renderArea = $('#root')
   rates.forEach(rate => renderArea.prepend(`
-    <li>
-      <span>${rate.cryptoCurrencyKey}</span>
-      <br>
-      <span>${rate.rate}</span>
-      <br>
-      <span>${new Date(rate.time)}</span>
-    </li>
+    <div class="list-group-item rounded-3 py-3">
+      ${rate.cryptoCurrencyKey}
+      <span style="color:green">${rate.rate}</span>
+      <span class="d-block small opacity-50">
+        ${new Date(rate.time).toLocaleString()}
+      </span>
+    </div>
   `))
 }
 
