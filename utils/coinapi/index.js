@@ -1,5 +1,6 @@
 const axios = require('axios')
 const config = require('config')
+const { Rates } = require('../../models/currency')
 
 const { server: { currenciesList, coinApi, ratesCheckInterval } } = config
 
@@ -16,16 +17,30 @@ const getCurrencyExchangeRates = async (currency) => {
   })
 }
 
-const getRatesForAvailibleCurrencies = async () => {
+const processAvailibleCurrencies = async () => {
   const availibleCurrencies = currenciesList.filter(({ availible }) => availible)
   const requestPromises = availibleCurrencies.map(({ alias }) => getCurrencyExchangeRates(alias))
-  await Promise.all(requestPromises).then(result => {
-    console.log(result)
-  }).catch(err => console.error(err))
+
+  const rates = await Promise.all(requestPromises).catch(err => console.error(err))
+
+  if (!rates) return
+
+  for (const el of rates) {
+    const rate = new Rates({
+      cryptoCurrencyKey: el.asset_id_base,
+      currencyKey: el.asset_id_quote,
+      time: el.time,
+      rate: el.rate,
+    })
+
+    rate.save().then(data => {
+      console.log(data)
+    }).catch(err => console.error(err))
+  }
 }
 
 const initRatesCheckerTimer = () => {
-  return setInterval(getRatesForAvailibleCurrencies, ratesCheckInterval * 1000)
+  return setInterval(processAvailibleCurrencies, ratesCheckInterval * 1000)
 }
 
 module.exports = {

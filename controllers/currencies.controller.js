@@ -9,10 +9,8 @@ const getAvailibleCurrencies = (req, res, next) => {
   }
 }
 
-const getCurrencyExchangeRatesHistory = async (req, res, next) => {
-  await getCurrencyHistory()
-    .then(history => res.json(history))
-    .catch(err => next(err))
+const getCurrencyExchangeRatesHistory = (req, res, next) => {
+  getCurrencyHistory().then(history => res.json(history)).catch(err => next(err))
 }
 
 module.exports = {
